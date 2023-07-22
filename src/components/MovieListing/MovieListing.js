@@ -6,8 +6,10 @@ import "./MovieListing.scss";
 const MovieListing = () => {
   const movies = useSelector(getAllMovies);
   const shows = useSelector(getAllShows);
+  const loading = useSelector(state => state.movies.loading);
   let renderMovies,
     renderShows = "";
+
 
   renderMovies =
     movies.Response === "True" ? (
@@ -32,11 +34,33 @@ const MovieListing = () => {
     <div className="movie-wrapper">
       <div className="movie-list">
         <h2>Movies</h2>
+        {
+          loading ? 
+          (
+            <div style={{color:"white",fontSize:"20px"}}>
+              Loading...
+            </div>
+          )
+          : 
+          (
         <div className="movie-container">{renderMovies}</div>
+          )
+        }
       </div>
       <div className="show-list">
         <h2>Shows</h2>
-        <div className="movie-container">{renderShows}</div>
+        {
+          loading ? 
+          (
+            <div style={{color:"white",fontSize:"20px"}}>
+              Loading...
+            </div>
+          )
+          :
+          (
+            <div className="movie-container">{renderShows}</div>
+          )
+        }
       </div>
     </div>
   );
